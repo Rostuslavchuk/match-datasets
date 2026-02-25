@@ -80,14 +80,14 @@ class MatchProcess(MatchAbstract):
         logger.info(f"One-to-Many Matches: {one_to_many_rate:.2f}% ({one_to_many_count} cases)")
         logger.info("------------------------")
 
-    def get_fuzzy_overlap(self, list1, list2, threshold=85):
+    def get_fuzzy_overlap(self, list1, list2, threshold=80):
         if not isinstance(list1, list) or not isinstance(list2, list):
             return []
         
         overlap = []
         for addr1 in list1:
             for addr2 in list2:
-                score = fuzz.token_sort_ratio(addr1, addr2)
+                score = fuzz.token_set_ratio(addr1, addr2)
                 if score >= threshold:
                     overlap.append(addr1)
                     break 
